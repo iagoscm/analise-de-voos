@@ -4,6 +4,7 @@
 
 ### Atividades: 
 
+- [ ] Manipular arquivo para ter informações relevantes para análise
 - [ ] Ler o arquivo
 - [ ] Guardar em um array as informacoes (Struct)
 - [ ] Ordenar alfabeticamente o vetor por linha aeria
