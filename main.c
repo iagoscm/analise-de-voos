@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include "bubble.h"
+#include "bubblesort.h"
+
 /*
     Criar struct para armazenar dados do arquivo original rawData(airline, delay)
     Criar struct para armazenar atraso e total de voos por linha aerea newData(airline, delays, totalFlights)
@@ -9,6 +10,9 @@
 /*
     Criar biblioteca para o bubbleSort
 */
+
+
+
 int main(){
 
     char firstLine[50];
@@ -22,7 +26,7 @@ int main(){
     printf("%s", firstLine);
 
     if(originalFile){
-        while(fscanf(originalFile, "%[^,],%d", airline, &delay) != EOF){
+        while(fscanf(originalFile, "%[^,],%d", airline, &delay) != EOF){// Mudar %d para short int
             //Armazenar dados num array de structs (rawData; airline, delay)
         }
         /*
@@ -31,7 +35,7 @@ int main(){
             Ler rawData ordenada por airline:
                 - criar contador flights = 0 sempre que mudar de airline
                 - criar contador delays = 0 sempre que mudar de airline
-                - ler airline para armazenar na newData
+                - ler airline para armazenar na newData4
                 - se a airline for a mesma, somar delays e/ou flights assim que necessario
                 - se a airline for diferente:
                     - calcular average(media)
