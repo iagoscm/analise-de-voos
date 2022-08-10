@@ -4,11 +4,11 @@
 
 ### Atividades: 
 
-- [ ] Manipular arquivo para ter informações relevantes para análise
-- [ ] Ler o arquivo
+- [x] Manipular arquivo para ter informações relevantes para análise
+- [x] Ler o arquivo
 - [ ] Guardar em um array as informacoes (Struct)
-- [ ] Ordenar alfabeticamente o vetor por linha aeria
-- [ ] Contar por linha áeria os voos que atrasaram
+- [ ] Ordenar alfabeticamente o vetor por linha aérea
+- [ ] Contar por linha aérea os voos que atrasaram
 - [ ] Fazer uma média da quantidade de atrasos pela quantidade de voos de cada linha aeria
 - [ ] Ordenar as medias
 - [ ] Mostrar num grafico
