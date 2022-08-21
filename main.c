@@ -29,6 +29,12 @@ int contadorLinhas() {
     
 }
 
+int media(){
+    int indice = 0;
+    int flights=0;
+
+}
+
 int main(){
     clock_t t;
     t = clock();
@@ -57,6 +63,7 @@ int main(){
     double time_taken = ((double)t)/CLOCKS_PER_SEC; // calculate the elapsed time
     printf("The program took %f seconds to execute", time_taken);
 
+    //pra simular o vetor vindo já em ordem alfabetica
     example ex[5];
     ex[0].delay=0;
     ex[1].delay=1;
