@@ -1,17 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 typedef struct {
     char nome[3];
     short int delay;
 } rawData;
 
+typedef struct {
+    char nome[3];
+    short int delay;
+} example;
+
 int contadorLinhas() {
     FILE *fp;
     char linha[50];
     int count = 0;
 
+    
     fp = fopen("./files/Airlines.csv", "r");
     fscanf(fp,"%s",linha);
     while (fscanf(fp,"%s",linha) != EOF)
@@ -25,6 +32,7 @@ int contadorLinhas() {
 int main(){
     clock_t t;
     t = clock();
+
 
     char primeiraLinha[50];
     FILE *arqOriginal;
@@ -48,6 +56,19 @@ int main(){
     t = clock() - t;
     double time_taken = ((double)t)/CLOCKS_PER_SEC; // calculate the elapsed time
     printf("The program took %f seconds to execute", time_taken);
+
+    example ex[5];
+    ex[0].delay=0;
+    ex[1].delay=1;
+    ex[2].delay=0;
+    ex[3].delay=1;
+    ex[4].delay=1;
+    strcpy(ex[0].nome, "AB");
+    strcpy(ex[1].nome, "AB");
+    strcpy(ex[2].nome, "AB");
+    strcpy(ex[3].nome, "BT");
+    strcpy(ex[4].nome, "BT");
+    
 
     free(dadosOriginais);
     
