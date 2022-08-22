@@ -9,8 +9,8 @@ typedef struct {
 } rawData;
 
 typedef struct {
-    char nome[3];
-    short int delay;
+    int voos;
+    int voosAtrasados;
 } example;
 
 int contadorLinhas() {
@@ -65,17 +65,16 @@ int main(){
 
     //pra simular o vetor vindo já em ordem alfabetica
     example ex[5];
-    ex[0].delay=0;
-    ex[1].delay=1;
-    ex[2].delay=0;
-    ex[3].delay=1;
-    ex[4].delay=1;
-    strcpy(ex[0].nome, "AB");
-    strcpy(ex[1].nome, "AB");
-    strcpy(ex[2].nome, "AB");
-    strcpy(ex[3].nome, "BT");
-    strcpy(ex[4].nome, "BT");
-    
+    ex[0].voos=20;
+    ex[0].voosAtrasados=2;
+    ex[1].voos=100;
+    ex[1].voosAtrasados=20;
+    ex[2].voos=2000;
+    ex[2].voosAtrasados=400;
+    ex[3].voos=11;
+    ex[3].voosAtrasados=1;
+    ex[4].voos=104;
+    ex[4].voosAtrasados=4;
 
     free(dadosOriginais);
     
