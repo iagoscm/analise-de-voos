@@ -2,17 +2,6 @@
 #include <stdlib.h>
 #include "bubblesort.h"
 
-typedef struct {
-    char nome[3];
-    short int delay;
-} rawData;
-
-/*
-    Criar biblioteca para o bubbleSort
-*/
-
-
-
 int main(){
 
     char firstLine[50];
