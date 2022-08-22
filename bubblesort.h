@@ -1,5 +1,6 @@
 #ifndef BUBBLESORT_H
 #define BUBBLESORT_H
+#include "macros.h"
 
 // Macro para definir menor que
 #define LESS(A, B) (A < B)
@@ -19,6 +20,6 @@
             EXCH(A, B); \
     }
 
-char ordenaBubble(int vet[], int l, int r);
+void bubbleSort(rawData *, int n);
 
 #endif

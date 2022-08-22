@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include "bubblesort.h"
 
-/*
-    Criar struct para armazenar dados do arquivo original rawData(airline, delay)
-    Criar struct para armazenar atraso e total de voos por linha aerea newData(airline, delays, totalFlights)
-*/
+typedef struct {
+    char nome[3];
+    short int delay;
+} rawData;
 
 /*
     Criar biblioteca para o bubbleSort

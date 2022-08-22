@@ -1,16 +1,20 @@
 #include "bubblesort.h"
 #include <stdio.h>
+#include "macros.h"
 
-char ordenaBubble(int vet[], int l, int r);
-
-char ordenaBubble(int vet[], int l, int r)
+// Para trocar
+void swap(char *, char *)
 {
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+
+// Bubble Sort
+void bubbleSort(rawData *, int n){
     int i, j;
-    for (i = 0; i < r - 1; i++)
-    {
-        for (j = 0; j < r - 1; j++)
-        {
-            return CMPEXCH(vet[j], vet[j + 1]);
-        }
-    }
+    for (i = 0; i < n - 1; i++)
+        for (j = 0; j < n - i - 1; j++)
+            if (rawData[j] > rawData[j + 1])
+                swap(&arr[j], &arr[j + 1]);
 }
