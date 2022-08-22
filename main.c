@@ -9,6 +9,7 @@ typedef struct {
 } rawData;
 
 typedef struct {
+    char nome[3];
     int voos;
     int voosAtrasados;
 } example;
@@ -29,17 +30,12 @@ int contadorLinhas() {
     
 }
 
-int media(){
-    int indice = 0;
-    int flights=0;
-
-}
-
 int main(){
     clock_t t;
     t = clock();
 
-
+    int i;
+    double media[50]; //substituir 50 pelo tamanho do vetor de struct com dados de voos e voos atrasados, que é a qntd de linhas aereas
     char primeiraLinha[50];
     FILE *arqOriginal;
     rawData *dadosOriginais;
@@ -75,6 +71,10 @@ int main(){
     ex[3].voosAtrasados=1;
     ex[4].voos=104;
     ex[4].voosAtrasados=4;
+   
+    for (i=0;i<5;i++){ //preenchendo array media que vai ser o eixo y
+        media[i] = (ex[i].voosAtrasados)/((double)(ex[i].voos));
+    }
 
     free(dadosOriginais);
     
