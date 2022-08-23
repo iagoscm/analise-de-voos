@@ -1,36 +1,104 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "bubblesort.h"
+#include <time.h>
+
+typedef struct {
+    char nome[3];
+    short int delay;
+} rawData;
+
+int contadorLinhas();
+int comparaStr(char str1[], char str2[]);
+int bubbleSort(rawData data1[],int tamStr);
 
 int main(){
 
-    char firstLine[50];
-    short int delay;
-    char airline[2];
-    FILE *originalFile;
-    //Criar variavel
+    clock_t t;
+    t = clock();
 
-    originalFile = fopen("files/Airlines.csv", "r");
-    fscanf(originalFile, "%s", firstLine);
-    printf("%s", firstLine);
+    char primeiraLinha[50];
+    FILE *arqOriginal;
+    rawData *dadosOriginais;
+    int quantidadeLinhas;
 
-    if(originalFile){
-        while(fscanf(originalFile, "%[^,],%d", airline, &delay) != EOF){// Mudar %d para short int
-            //Armazenar dados num array de structs (rawData; airline, delay)
-        }
-        /*
-            Ordenar rawData por ordem alfabetica, atraves do metodo bubbleSort
-            criar array de structs newData
-            Ler rawData ordenada por airline:
-                - criar contador flights = 0 sempre que mudar de airline
-                - criar contador delays = 0 sempre que mudar de airline
-                - ler airline para armazenar na newData4
-                - se a airline for a mesma, somar delays e/ou flights assim que necessario
-                - se a airline for diferente:
-                    - calcular average(media)
-                    - armazenar average e airline na newData
-        */
+    arqOriginal = fopen("./files/Airlines.csv", "r");
+    fscanf(arqOriginal, "%s", primeiraLinha);
+
+    quantidadeLinhas = contadorLinhas();
+
+    dadosOriginais = (rawData*) malloc(quantidadeLinhas*sizeof(rawData));
+
+    int indice = 0;
+    while (fscanf(arqOriginal, "%[^,], %hd", dadosOriginais[indice].nome, &dadosOriginais[indice].delay) != EOF)
+    {
+        indice ++;
     }
 
+    bubbleSort(dadosOriginais, quantidadeLinhas);
+
+    for(int i = 0; i < quantidadeLinhas; i++){
+        printf("%s\n", dadosOriginais[i].nome);
+        if(i%10 == 0){
+            getchar();
+        }
+    }
+
+    t = clock() - t;
+    double time_taken = ((double)t)/CLOCKS_PER_SEC; // calculate the elapsed time
+    printf("The program took %f seconds to execute", time_taken);
+
+    free(dadosOriginais);
+    fclose(arqOriginal);
     return 0;
 }
+
+int contadorLinhas() {
+    FILE *fp;
+    char linha[50];
+    int count = 0;
+
+    fp = fopen("./files/Airlines.csv", "r");
+    fscanf(fp,"%s",linha);
+    while (fscanf(fp,"%s",linha) != EOF)
+    {
+        count++;
+    }
+    return count;
+
+}
+
+int comparaStr(char str1[], char str2[]) {
+    int i = 0;
+
+    while (str1[i] == str2[i] && str1[i] != '\0')
+    {
+        i++;
+    }
+
+    if (str1[i] < str2[i])
+    {
+        return -1;
+    } else if (str1[i] > str2[i])
+    {
+        return 1;
+    } else {
+        return 0;
+    }
+
+}
+
+int bubbleSort(rawData data1[],int tamStr) {
+    int i, j;
+    rawData tempData;
+
+    for (i = tamStr - 1; i > 0; i--){
+        for (j = 0; j < i; j++)
+            if (comparaStr(data1[j].nome, data1[j+1].nome) > 0)
+            {
+                tempData = data1[j];
+                data1[j] = data1[j+1];
+                data1[j+1] = tempData;
+            }
+    }
+}
+
