@@ -1,11 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 typedef struct {
     char nome[3];
     short int delay;
 } rawData;
+
+typedef struct{
+    char nome[3];
+    short int delay;
+    short int travels;
+} newData;
+
 
 int contadorLinhas();
 int comparaStr(char str1[], char str2[]);
@@ -13,12 +19,10 @@ int bubbleSort(rawData data1[],int tamStr);
 
 int main(){
 
-    clock_t t;
-    t = clock();
-
     char primeiraLinha[50];
     FILE *arqOriginal;
-    rawData *dadosOriginais;
+    rawData *dadosOrdenados;
+    newData *dadosUnicos;
     int quantidadeLinhas;
 
     arqOriginal = fopen("./files/Airlines.csv", "r");
@@ -26,31 +30,24 @@ int main(){
 
     quantidadeLinhas = contadorLinhas();
 
-    dadosOriginais = (rawData*) malloc(quantidadeLinhas*sizeof(rawData));
+    dadosOrdenados = (rawData*) malloc(quantidadeLinhas*sizeof(rawData));
 
     int indice = 0;
-    while (fscanf(arqOriginal, "%[^,], %hd", dadosOriginais[indice].nome, &dadosOriginais[indice].delay) != EOF)
+    while (fscanf(arqOriginal, "%[^,], %hd", dadosOrdenados[indice].nome, &dadosOrdenados[indice].delay) != EOF)
     {
         indice ++;
     }
 
-    bubbleSort(dadosOriginais, quantidadeLinhas);
+    bubbleSort(dadosOrdenados, quantidadeLinhas);
 
-    for(int i = 0; i < quantidadeLinhas; i++){
-        printf("%s\n", dadosOriginais[i].nome);
-        if(i%10 == 0){
-            getchar();
-        }
-    }
+    dadosUnicos = (newData*) malloc(quantidadeLinhas*sizeof(newData));
 
-    t = clock() - t;
-    double time_taken = ((double)t)/CLOCKS_PER_SEC; // calculate the elapsed time
-    printf("The program took %f seconds to execute", time_taken);
-
-    free(dadosOriginais);
+    free(dadosUnicos);
+    free(dadosOrdenados);
     fclose(arqOriginal);
     return 0;
 }
+
 
 int contadorLinhas() {
     FILE *fp;
