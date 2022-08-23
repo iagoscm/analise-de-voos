@@ -11,7 +11,7 @@ typedef struct {
     char airLine[3];
     int totalFlights;
     int delayTotal;
-
+    double media;
 } filteredData;
 
 int contadorLinhas();
@@ -19,6 +19,8 @@ int contadorLinhas();
 int comparaStr(char str1[], char str2[]);
 
 void copiaStr(char str1[], char str2[]);
+
+void bubbleSort(filteredData *dadosFiltrados, int quantAirlines);
 
 void bubbleSortAlph(rawData data1[],int tamStr);
 
@@ -37,7 +39,7 @@ int main(){
     int quantidadeLinhas;
     int quantidadeAirlines;
 
-    arqOriginal = fopen("./files/Airlines.csv", "r"); 
+    arqOriginal = fopen("./files/Teste.csv", "r"); 
     fscanf(arqOriginal, "%s", primeiraLinha);
 
     quantidadeLinhas = contadorLinhas(); 
@@ -58,16 +60,21 @@ int main(){
 
     filtrarDados(dadosOriginais, dadosFiltrados, quantidadeLinhas); //  agrupar total de atrasos e voos por linha aeria
 
-    /* for (int i = 0; i < quantidadeAirlines; i++)
-    {
-        printf("%s - %d - %d\n", dadosFiltrados[i].airLine, dadosFiltrados[i].delayTotal, dadosFiltrados[i].totalFlights);
-    } // printa structs construidas com a linha aeria, total de delays e total de voos  */
-
-    double media[quantidadeAirlines];
-    for (int i=0;i<quantidadeAirlines;i++){ //preenchendo array media que vai ser o eixo y
-        media[i] = (dadosFiltrados[i].delayTotal)/((double)(dadosFiltrados[i].totalFlights));
-        //printf("%lf \n",media[i]);
+    double media;
+    for (int i=0;i<quantidadeAirlines;i++){ // alocar a media calculada na struct
+        media = (dadosFiltrados[i].delayTotal)/((double)(dadosFiltrados[i].totalFlights));
+        dadosFiltrados[i].media = media;
+        // printf("%lf \n",dadosFiltrados[i].media);
     }
+
+    bubbleSort(dadosFiltrados,quantidadeAirlines);
+
+    for (int i = 0; i < quantidadeAirlines; i++)
+    {
+        printf("%s - %d - %d - %lf \n", dadosFiltrados[i].airLine, dadosFiltrados[i].delayTotal, dadosFiltrados[i].totalFlights, dadosFiltrados[i].media);
+    } // printa structs construidas com a linha aeria, total de delays e total de voos 
+
+    // gerar arquivo com airlines e media
 
     free(dadosOriginais);
     free(dadosFiltrados);
@@ -85,7 +92,7 @@ int contadorLinhas() {
     char linha[50];
     int count = 0;
 
-    fp = fopen("./files/Airlines.csv", "r");
+    fp = fopen("./files/Teste.csv", "r");
     fscanf(fp,"%s",linha);
     while (fscanf(fp,"%s",linha) != EOF)
     {
@@ -114,20 +121,21 @@ int comparaStr(char str1[], char str2[]) {
 
 }
 
-int bubbleSort(rawData data1[],int tamStr) {
-    int i, j;
-    rawData tempData;
-
-    for (i = tamStr - 1; i > 0; i--){
-        for (j = 0; j < i; j++)
-            if (comparaStr(data1[j].nome, data1[j+1].nome) > 0)
-            {
-                tempData = data1[j];
-                data1[j] = data1[j+1];
-                data1[j+1] = tempData;
-            }
+void bubbleSort(filteredData *dadosFiltrados, int quantAirlines){ 
+    if (quantAirlines < 1) return; 
+    filteredData *temp;
+ 
+    for (int i=0; i<quantAirlines; i++) 
+    {
+        if (dadosFiltrados[i].media > dadosFiltrados[i+1].media) 
+        {
+            temp = dadosFiltrados[i];
+            dadosFiltrados[i] = dadosFiltrados[i+1];
+            dadosFiltrados[i+1] = temp;
+        }
     }
-}
+    bubbleSort(dadosFiltrados, quantAirlines-1); 
+} 
 
 void copiaStr(char str1[], char str2[]) {
     for (int i = 0; i < 3; i++)
