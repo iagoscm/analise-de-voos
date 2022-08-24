@@ -42,7 +42,7 @@ int main()
     int quantidadeLinhas;
     int quantidadeAirlines;
 
-    arqOriginal = fopen("./files/Teste.csv", "r");
+    arqOriginal = fopen("./files/Airlines.csv", "r");
     fscanf(arqOriginal, "%s", primeiraLinha);
 
     quantidadeLinhas = contadorLinhas();
@@ -68,7 +68,6 @@ int main()
     {
         media = (dadosFiltrados[i].delayTotal) / ((double)(dadosFiltrados[i].totalFlights));
         dadosFiltrados[i].media = media;
-        // printf("%lf \n",dadosFiltrados[i].media);
     }
 
     /* for (int i = 0; i < quantidadeAirlines; i++)
@@ -135,7 +134,7 @@ int contadorLinhas()
     char linha[50];
     int count = 0;
 
-    fp = fopen("./files/Teste.csv", "r");
+    fp = fopen("./files/Airlines.csv", "r");
     fscanf(fp, "%s", linha);
     while (fscanf(fp, "%s", linha) != EOF)
     {
