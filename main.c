@@ -32,7 +32,7 @@ void filtrarDados(rawData raw[], filteredData filtered[], int quantidadeLinhas);
 
 int main()
 {
-    clock_t t;
+    clock_t t, tBubble1, tBubble2;
     t = clock(); // calcular o tempo de execucao
 
     char primeiraLinha[50];
@@ -55,7 +55,13 @@ int main()
         indice++;
     } // traducao do arquivo csv para um array de struct
 
+    tBubble1 = clock(); // calcular o tempo de execucao do primeiro bubblesort
+
     bubbleSortAlph(dadosOriginais, quantidadeLinhas); // ordenar o array de struct alfabeticamente
+
+    tBubble1 = clock() - tBubble1; // calcula tempo final de execucao do primeiro bubble sort
+    double tempoBubble1 = ((double)tBubble1) / CLOCKS_PER_SEC;
+    printf("O primeiro bubblesort levou %f segundos para executar\n", tempoBubble1);
 
     quantidadeAirlines = contadorLinhasAereas(dadosOriginais, quantidadeLinhas);
 
@@ -70,17 +76,13 @@ int main()
         dadosFiltrados[i].media = media;
     }
 
-    /* for (int i = 0; i < quantidadeAirlines; i++)
-    {
-        printf("%s - %d - %d - %lf \n", dadosFiltrados[i].airLine, dadosFiltrados[i].delayTotal, dadosFiltrados[i].totalFlights, dadosFiltrados[i].media);
-    } // printa structs construidas com a linha aeria, total de delays e total de voos  */
+    tBubble2 = clock(); // calcular o tempo de execucao do segundo bubblesort
 
     bubbleSort(dadosFiltrados, quantidadeAirlines);
 
-    /* for (int i = 0; i < quantidadeAirlines; i++)
-    {
-        printf("%s - %lf \n", dadosFiltrados[i].airLine, dadosFiltrados[i].media);
-    } // printa medias */
+    tBubble2 = clock() - tBubble2; // calcula tempo final de execucao do primeiro bubble sort
+    double tempoBubble2 = ((double)tBubble2) / CLOCKS_PER_SEC;
+    printf("O segundo bubblesort levou %f segundos para executar\n", tempoBubble2);
 
     FILE *arq;
     arq = fopen("./files/Airlines_grafico.csv", "wt"); // Cria um arquivo texto para gravação
