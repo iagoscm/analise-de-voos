@@ -65,7 +65,7 @@ int main()
 
     double media;
     for (int i = 0; i < quantidadeAirlines; i++) // alocar a media calculada na struct
-    { 
+    {
         media = (dadosFiltrados[i].delayTotal) / ((double)(dadosFiltrados[i].totalFlights));
         dadosFiltrados[i].media = media;
         // printf("%lf \n",dadosFiltrados[i].media);
@@ -78,16 +78,31 @@ int main()
 
     bubbleSort(dadosFiltrados, quantidadeAirlines);
 
-    for (int i = 0; i < quantidadeAirlines; i++)
+    /* for (int i = 0; i < quantidadeAirlines; i++)
     {
         printf("%s - %lf \n", dadosFiltrados[i].airLine, dadosFiltrados[i].media);
-    } // printa medias
+    } // printa medias */
 
-    // gerar arquivo com airlines e media
+    FILE *arq;
+    arq = fopen("./files/Airlines_grafico.csv", "wt"); // Cria um arquivo texto para gravação
+    if (arq == NULL)
+    {
+        printf("Problemas na CRIACAO do arquivo\n");
+        return 0;
+    }
+
+    fputs("Airlines, Media de atrasos",arq);
+    for (int i = 0; i < quantidadeAirlines; i++)
+    {
+        fputs(dadosFiltrados[i].airLine,arq);
+        fputs(",",arq);
+        fprintf(arq,"%lf",dadosFiltrados[i].media);
+    }
 
     free(dadosOriginais);
     free(dadosFiltrados);
     fclose(arqOriginal);
+    fclose(arq);
 
     t = clock() - t; // calcula tempo final de execucao
     double time_taken = ((double)t) / CLOCKS_PER_SEC;
@@ -104,7 +119,7 @@ void bubbleSort(filteredData *dadosFiltrados, int quantAirlines)
     {
         for (int i = 0; i < a; i++)
         {
-            if (dadosFiltrados[i].media > dadosFiltrados[i+1].media)
+            if (dadosFiltrados[i].media > dadosFiltrados[i + 1].media)
             {
                 *temp = dadosFiltrados[i];
                 dadosFiltrados[i] = dadosFiltrados[i + 1];
