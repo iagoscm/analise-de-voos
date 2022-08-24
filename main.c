@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct { 
+typedef struct
+{
     char nome[3];
     short int delay;
 } rawData;
 
-typedef struct {
+typedef struct
+{
     char airLine[3];
     int totalFlights;
     int delayTotal;
@@ -22,13 +24,14 @@ void copiaStr(char str1[], char str2[]);
 
 void bubbleSort(filteredData *dadosFiltrados, int quantAirlines);
 
-void bubbleSortAlph(rawData data1[],int tamStr);
+void bubbleSortAlph(rawData data1[], int tamStr);
 
 int contadorLinhasAereas(rawData arr[], int quantidadeLinhas);
 
 void filtrarDados(rawData raw[], filteredData filtered[], int quantidadeLinhas);
 
-int main(){
+int main()
+{
     clock_t t;
     t = clock(); // calcular o tempo de execucao
 
@@ -39,113 +42,126 @@ int main(){
     int quantidadeLinhas;
     int quantidadeAirlines;
 
-    arqOriginal = fopen("./files/Teste.csv", "r"); 
+    arqOriginal = fopen("./files/Teste.csv", "r");
     fscanf(arqOriginal, "%s", primeiraLinha);
 
-    quantidadeLinhas = contadorLinhas(); 
+    quantidadeLinhas = contadorLinhas();
 
-    dadosOriginais = (rawData*) malloc(quantidadeLinhas*sizeof(rawData));
+    dadosOriginais = (rawData *)malloc(quantidadeLinhas * sizeof(rawData));
 
     int indice = 0;
     while (fscanf(arqOriginal, "%[^,], %hd", dadosOriginais[indice].nome, &dadosOriginais[indice].delay) != EOF)
     {
-        indice ++;
+        indice++;
     } // traducao do arquivo csv para um array de struct
 
     bubbleSortAlph(dadosOriginais, quantidadeLinhas); // ordenar o array de struct alfabeticamente
 
-    quantidadeAirlines = contadorLinhasAereas(dadosOriginais,quantidadeLinhas);
+    quantidadeAirlines = contadorLinhasAereas(dadosOriginais, quantidadeLinhas);
 
-    dadosFiltrados = (filteredData*) malloc(quantidadeAirlines*sizeof(filteredData));
+    dadosFiltrados = (filteredData *)malloc(quantidadeAirlines * sizeof(filteredData));
 
     filtrarDados(dadosOriginais, dadosFiltrados, quantidadeLinhas); //  agrupar total de atrasos e voos por linha aeria
 
     double media;
-    for (int i=0;i<quantidadeAirlines;i++){ // alocar a media calculada na struct
-        media = (dadosFiltrados[i].delayTotal)/((double)(dadosFiltrados[i].totalFlights));
+    for (int i = 0; i < quantidadeAirlines; i++) // alocar a media calculada na struct
+    { 
+        media = (dadosFiltrados[i].delayTotal) / ((double)(dadosFiltrados[i].totalFlights));
         dadosFiltrados[i].media = media;
         // printf("%lf \n",dadosFiltrados[i].media);
     }
 
-    bubbleSort(dadosFiltrados,quantidadeAirlines);
+    /* for (int i = 0; i < quantidadeAirlines; i++)
+    {
+        printf("%s - %d - %d - %lf \n", dadosFiltrados[i].airLine, dadosFiltrados[i].delayTotal, dadosFiltrados[i].totalFlights, dadosFiltrados[i].media);
+    } // printa structs construidas com a linha aeria, total de delays e total de voos  */
+
+    bubbleSort(dadosFiltrados, quantidadeAirlines);
 
     for (int i = 0; i < quantidadeAirlines; i++)
     {
-        printf("%s - %d - %d - %lf \n", dadosFiltrados[i].airLine, dadosFiltrados[i].delayTotal, dadosFiltrados[i].totalFlights, dadosFiltrados[i].media);
-    } // printa structs construidas com a linha aeria, total de delays e total de voos 
+        printf("%s - %lf \n", dadosFiltrados[i].airLine, dadosFiltrados[i].media);
+    } // printa medias
 
     // gerar arquivo com airlines e media
 
     free(dadosOriginais);
     free(dadosFiltrados);
     fclose(arqOriginal);
-    
+
     t = clock() - t; // calcula tempo final de execucao
-    double time_taken = ((double)t)/CLOCKS_PER_SEC; 
+    double time_taken = ((double)t) / CLOCKS_PER_SEC;
     printf("O programa levou %f segundos para executar", time_taken);
 
     return 0;
 }
 
-int contadorLinhas() {
+void bubbleSort(filteredData *dadosFiltrados, int quantAirlines)
+{
+    filteredData *temp = (filteredData *)malloc(sizeof(filteredData));
+
+    for (int a = quantAirlines - 1; a > 0; a--)
+    {
+        for (int i = 0; i < a; i++)
+        {
+            if (dadosFiltrados[i].media > dadosFiltrados[i+1].media)
+            {
+                *temp = dadosFiltrados[i];
+                dadosFiltrados[i] = dadosFiltrados[i + 1];
+                dadosFiltrados[i + 1] = *temp;
+            }
+        }
+    }
+}
+
+int contadorLinhas()
+{
     FILE *fp;
     char linha[50];
     int count = 0;
 
     fp = fopen("./files/Teste.csv", "r");
-    fscanf(fp,"%s",linha);
-    while (fscanf(fp,"%s",linha) != EOF)
+    fscanf(fp, "%s", linha);
+    while (fscanf(fp, "%s", linha) != EOF)
     {
         count++;
     }
     return count;
 }
 
-int comparaStr(char str1[], char str2[]) {
+int comparaStr(char str1[], char str2[])
+{
     int i = 0;
 
     while (str1[i] == str2[i] && str1[i] != '\0')
-    {        
+    {
         i++;
     }
 
     if (str1[i] < str2[i])
     {
         return -1;
-    } else if (str1[i] > str2[i])
+    }
+    else if (str1[i] > str2[i])
     {
         return 1;
-    } else {
+    }
+    else
+    {
         return 0;
     }
-
 }
 
-void bubbleSort(filteredData *dadosFiltrados, int quantAirlines){ 
-    if (quantAirlines < 1) return; 
-    filteredData *temp;
- 
-    for (int i=0; i<quantAirlines; i++) 
-    {
-        if (dadosFiltrados[i].media > dadosFiltrados[i+1].media) 
-        {
-            temp = dadosFiltrados[i];
-            dadosFiltrados[i] = dadosFiltrados[i+1];
-            dadosFiltrados[i+1] = temp;
-        }
-    }
-    bubbleSort(dadosFiltrados, quantAirlines-1); 
-} 
-
-void copiaStr(char str1[], char str2[]) {
+void copiaStr(char str1[], char str2[])
+{
     for (int i = 0; i < 3; i++)
     {
         str1[i] = str2[i];
     }
-    
 }
 
-void bubbleSortAlph(rawData data1[],int tamStr) {
+void bubbleSortAlph(rawData data1[], int tamStr)
+{
     int i, j;
     rawData tempData;
 
@@ -153,34 +169,35 @@ void bubbleSortAlph(rawData data1[],int tamStr) {
     {
         for (j = 0; j < i; j++)
         {
-            if (comparaStr(data1[j].nome, data1[j+1].nome) > 0)
+            if (comparaStr(data1[j].nome, data1[j + 1].nome) > 0)
             {
                 tempData = data1[j];
-                data1[j] = data1[j+1];
-                data1[j+1] = tempData;
+                data1[j] = data1[j + 1];
+                data1[j + 1] = tempData;
             }
         }
     }
 }
 
-int contadorLinhasAereas(rawData arr[], int quantidadeLinhas) {
+int contadorLinhasAereas(rawData arr[], int quantidadeLinhas)
+{
     char temp[3];
     int contador = 1;
 
     copiaStr(temp, arr[0].nome);
     for (int i = 0; i < quantidadeLinhas; i++)
     {
-        if (comparaStr(temp,arr[i].nome) != 0)
+        if (comparaStr(temp, arr[i].nome) != 0)
         {
             copiaStr(temp, arr[i].nome);
             contador++;
         }
-        
     }
-    return contador; 
+    return contador;
 }
 
-void filtrarDados(rawData raw[], filteredData filtered[], int quantidadeLinhas) {
+void filtrarDados(rawData raw[], filteredData filtered[], int quantidadeLinhas)
+{
     char temp[3];
     int contador = 0;
     int totalDelays = 0;
@@ -189,16 +206,16 @@ void filtrarDados(rawData raw[], filteredData filtered[], int quantidadeLinhas) 
     copiaStr(temp, raw[0].nome);
     for (int i = 0; i <= quantidadeLinhas; i++)
     {
-        if (comparaStr(temp,raw[i].nome) == 0)
+        if (comparaStr(temp, raw[i].nome) == 0)
         {
             totalFlights++;
             if (raw[i].delay == 1)
             {
                 totalDelays++;
-            }   
+            }
         }
-        
-        if (comparaStr(temp,raw[i].nome) != 0)
+
+        if (comparaStr(temp, raw[i].nome) != 0)
         {
             copiaStr(filtered[contador].airLine, temp);
             filtered[contador].totalFlights = totalFlights;
@@ -209,7 +226,5 @@ void filtrarDados(rawData raw[], filteredData filtered[], int quantidadeLinhas) 
             totalFlights = 1;
             contador++;
         }
-        
     }
-
 }
