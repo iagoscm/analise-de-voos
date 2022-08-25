@@ -8,9 +8,18 @@
 - [x] Ler o arquivo
 - [x] Guardar em um array as informacoes (Struct)
 - [x] Ordenar alfabeticamente o vetor por linha aérea
-- [ ] Contar por linha aérea os voos que atrasaram
-- [ ] Fazer uma média da quantidade de atrasos pela quantidade de voos de cada linha aeria
-- [ ] Ordenar as medias
-- [ ] Mostrar num grafico
+- [x] Contar por linha aérea os voos que atrasaram
+- [x] Fazer uma média da quantidade de atrasos pela quantidade de voos de cada linha aeria
+- [x] Ordenar as medias
+- [x] Mostrar num grafico
 
 #### Colaboradores:
+Alexia Naara da Silva Cardoso
+
+Iago de Sousa Campelo Matos
+
+Matheus Augusto Morinishi
+
+Millena de Abreu Queiroz
+
+Natan Tavares Santana
