@@ -2,6 +2,10 @@
 
 ## Grupo H
 
+### Gerar o Gráfico: 
+Para plotar o gráfico digite o seguinte comando no terminal:
+`python3 geraGrafico.py`
+
 ### Atividades: 
 
 - [x] Manipular arquivo para ter informações relevantes para análise
