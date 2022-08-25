@@ -12,10 +12,13 @@ delays = df[' Media de atrasos']
 plt.figure(figsize=(10,6))
 
 # Rótulo do eixo x
-plt.xlabel("Media de atrasos")
+plt.xlabel("Linhas aéreas")
 
 # Rótulo do eixo y
-plt.ylabel("Linhas aéreas")
+plt.ylabel("Media de atrasos")
+
+# Adiciona titulo ao gráfico
+plt.title("Media de atrasos por linha aérea")
 
 # Adicionando as variáveis para o gráfico
 plt.plot(airlines, delays, 'r')
