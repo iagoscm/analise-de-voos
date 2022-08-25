@@ -2,7 +2,15 @@
 
 ## Grupo H
 
-### Gerar o Gráfico: 
+#### Colaboradores:
+
+|![Alexia](https://github.com/MillenaQueiroz.png) |![Alexia](https://github.com/alexianaa.png)|![Iago](https://github.com/iagoscm.png)|![Morinishi](https://github.com/Morinishi15.png)|![Natan](https://github.com/Neitan2001.png)|
+| - | - | - | - | - |
+|[Millena Queiroz](https://github.com/MillenaQueiroz)|[Alexia Naara](https://github.com/alexianaa) | [Iago Campelo](https://github.com/iagoscm)|[Matheus Morinishi](https://github.com/Morinishi15)|[Natan Tavares](https://github.com/Neitan2001)|
+
+
+### Gerando o Gráfico: 
+
 Para plotar o gráfico digite o seguinte comando no terminal:
 `python3 geraGrafico.py`
 
@@ -17,13 +25,3 @@ Para plotar o gráfico digite o seguinte comando no terminal:
 - [x] Ordenar as medias
 - [x] Mostrar num grafico
 
-#### Colaboradores:
-Alexia Naara da Silva Cardoso
-
-Iago de Sousa Campelo Matos
-
-Matheus Augusto Morinishi
-
-Millena de Abreu Queiroz
-
-Natan Tavares Santana
