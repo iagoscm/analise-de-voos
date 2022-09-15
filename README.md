@@ -2,7 +2,7 @@
 
 ### 🤔 Sobre o Projeto
 
-O projeto que será tem a finalidade de obter resultados quanto às médiasobtidas de atrasos de vôos de linhas aéreas americanas, através de uma análise de um arquivo disponibilizado pelo Kaggle. O método de ordenação Bubble foi usado tanto para ordenar as médias quanto para ordenar alfabeticamente as linhas. Para mais informações, acesse o relatório disponibilizado em PDF nos arquivos do repositório.
+O projeto que será tem a finalidade de obter resultados quanto às médias obtidas de atrasos de vôos de linhas aéreas americanas, através de uma análise de um arquivo disponibilizado pelo Kaggle. O método de ordenação Bubble foi usado tanto para ordenar as médias quanto para ordenar alfabeticamente as linhas. Para mais informações, acesse o relatório disponibilizado em PDF nos arquivos do repositório.
 
 ### :handshake: Colaboradores:
 
